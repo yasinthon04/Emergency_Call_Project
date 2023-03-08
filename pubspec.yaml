@@ -1,4 +1,4 @@
-name: Emergency App
+name: emc
 description: A new Flutter project.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -30,6 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  url_launcher: ^6.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -53,7 +54,8 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   assets:
-    - assets/data.json
+    - assets/newsdata.json
+    - assets/contactdata.json
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

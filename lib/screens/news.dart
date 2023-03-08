@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-import '../newsinfo/detail.dart';
+import '../info/newsdetail.dart';
 
 class NewsPage extends StatefulWidget {
   const NewsPage({Key? key}) : super(key: key);
@@ -39,7 +39,7 @@ class _NewsPageState extends State<NewsPage> {
                 return Center(child: CircularProgressIndicator());
               },
               future:
-                  DefaultAssetBundle.of(context).loadString("assets/data.json"),
+                  DefaultAssetBundle.of(context).loadString("assets/newsdata.json"),
             )));
   }
 
