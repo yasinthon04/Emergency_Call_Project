@@ -107,7 +107,7 @@ class _NewsPageState extends State<NewsPage> {
               },
               child: Text("Read more"),
               style: ElevatedButton.styleFrom(
-                primary: Color.fromARGB(255, 3, 91, 255),
+                primary: Color.fromARGB(255, 255, 74, 74), 
                 onPrimary: Color.fromARGB(255, 255, 255, 255),
               ),
             ),

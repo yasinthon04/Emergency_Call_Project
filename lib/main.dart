@@ -37,8 +37,8 @@ class _MainPageState extends State<MainPage> {
           ),
         body: tabs[_currentIndex],
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.red,
-          selectedItemColor: Colors.white,
+          backgroundColor: Color.fromARGB(255, 255, 255, 255),
+          selectedItemColor: Color.fromARGB(255, 255, 74, 74),
           currentIndex: _currentIndex,
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Homepage"),

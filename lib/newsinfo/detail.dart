@@ -22,55 +22,47 @@ class _DetailspageState extends State<Detailspage> {
   }
 
   @override
-Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: Text("Details"),
-    ),
-    body: Container(
-      alignment: Alignment.topCenter,
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              _v1,
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 255, 74, 74),
+        centerTitle: true,
+        title: Text("Details"),
+      ),
+      body: Container(
+        alignment: Alignment.topCenter,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                _v1,
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              _v2,
-              style: TextStyle(
-                fontSize: 15,
+              SizedBox(
+                height: 10,
               ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Image.network(
-              _v3,
-              height: 400,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Text(
-              _v4,
-              style: TextStyle(
-                fontSize: 15,
+              Image.network(
+                _v3,
+                height: 400,
               ),
-            ),
-          ],
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                _v4,
+                style: TextStyle(
+                  fontSize: 15,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-    ),
-  );
-}
-
+    );
+  }
 }
