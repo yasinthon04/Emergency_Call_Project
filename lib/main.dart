@@ -30,13 +30,18 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Color.fromARGB(255, 255, 74, 74), 
+          centerTitle: true, 
+          leading: Icon(Icons.local_hospital), 
           title: Text("Emergency call")
           ),
         body: tabs[_currentIndex],
         bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.red,
+          selectedItemColor: Colors.white,
           currentIndex: _currentIndex,
           items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Homepage",backgroundColor: Colors.blue),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Homepage"),
             BottomNavigationBarItem(icon: Icon(Icons.map), label: "Map"),
             BottomNavigationBarItem(icon: Icon(Icons.newspaper), label: "News"),
             

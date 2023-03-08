@@ -55,7 +55,7 @@ Widget build(BuildContext context) {
             ),
             Image.network(
               _v3,
-              height: 200,
+              height: 400,
             ),
             SizedBox(
               height: 20,
