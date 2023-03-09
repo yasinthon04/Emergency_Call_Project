@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.emc">
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
    <application
         android:label="emc"
         android:name="${applicationName}"
@@ -30,5 +32,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+                <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyCK2TB3yEzihRCiH9h17xUSbIZbR8nWbEk"/>
     </application>
 </manifest>
