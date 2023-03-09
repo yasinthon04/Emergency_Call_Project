@@ -10,7 +10,9 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: MainPage());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: MainPage());
   }
 }
 
@@ -24,7 +26,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
 
   int _currentIndex = 0;
-  final tabs = [HomePage(),MapPage(),NewsPage()];
+  final tabs = [TabBarDemo(),MapPage(),NewsPage()];
 
   @override
   Widget build(BuildContext context) {
