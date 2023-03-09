@@ -126,19 +126,21 @@ class TabBarDemo extends StatelessWidget {
                     Container(
                       child: ListView(
                         children: <Widget>[
-                          ListTile(
-                            leading: Icon(Icons.person),
-                            title: Text("John Smith"),
-                            subtitle: Text("Emergency Contact"),
-                            trailing: Icon(Icons.phone),
-                            onTap: () async {
-                              launch('tel://$number');
+                          Card(
+                            child: ListTile(
+                              leading: Icon(Icons.person),
+                              title: Text("John Smith"),
+                              subtitle: Text("Emergency Contact"),
+                              trailing: Icon(Icons.phone),
+                              onTap: () async {
+                                launch('tel://$number');
 
-                              await FlutterPhoneDirectCaller.callNumber(number);
-                              // Do something when the user taps the ListTile
-                            },
+                                await FlutterPhoneDirectCaller.callNumber(number);
+                                // Do something when the user taps the ListTile
+                              },
+                            ),
                           ),
-                          Container(
+                          Card(
                             child: ListTile(
                               leading: Icon(Icons.person),
                               title: Text("Jane Doe"),
@@ -155,16 +157,18 @@ class TabBarDemo extends StatelessWidget {
                     Container(
                       child: ListView(
                         children: <Widget>[
-                          ListTile(
-                            leading: Icon(Icons.person),
-                            title: Text("Bob Johnson"),
-                            subtitle: Text("Personal Contact"),
-                            trailing: Icon(Icons.phone),
-                            onTap: () {
-                              // Do something when the user taps the ListTile
-                            },
+                          Card(
+                            child: ListTile(
+                              leading: Icon(Icons.person),
+                              title: Text("Bob Johnson"),
+                              subtitle: Text("Personal Contact"),
+                              trailing: Icon(Icons.phone),
+                              onTap: () {
+                                // Do something when the user taps the ListTile
+                              },
+                            ),
                           ),
-                          Container(
+                          Card(
                             child: ListTile(
                               leading: Icon(Icons.person),
                               title: Text("Mary Smith"),
@@ -188,4 +192,3 @@ class TabBarDemo extends StatelessWidget {
     );
   }
 }
-
