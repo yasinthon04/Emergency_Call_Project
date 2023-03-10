@@ -29,37 +29,39 @@ class _DetailspageState extends State<Detailspage> {
         centerTitle: true,
         title: Text("Details"),
       ),
-      body: Container(
-        alignment: Alignment.topCenter,
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                _v1,
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
+      body: SingleChildScrollView(
+        child: Container(
+          alignment: Alignment.topCenter,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  _v1,
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Image.network(
-                _v3,
-                height: 400,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                _v4,
-                style: TextStyle(
-                  fontSize: 15,
+                SizedBox(
+                  height: 10,
                 ),
-              ),
-            ],
+                Image.network(
+                  _v3,
+                  height: 400,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  _v4,
+                  style: TextStyle(
+                    fontSize: 15,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
