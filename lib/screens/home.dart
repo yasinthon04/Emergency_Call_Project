@@ -20,6 +20,59 @@ void _launchPhoneApp(String phoneNumber) async {
   }
 }
 
+class ContactDetailPopup extends StatelessWidget {
+  final String name;
+  final String number;
+  final String relation;
+
+  ContactDetailPopup({
+    required this.name,
+    required this.number,
+    required this.relation,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text(name),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text("Phone number: $number"),
+            SizedBox(height: 8),
+            Text("Relationship: $relation"),
+          ],
+        ),
+      ),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.call),
+          onPressed: () async {
+            // Get the phone number from your data source
+            launch('tel://$number');
+            // Call the phone number
+            await FlutterPhoneDirectCaller.callNumber(number);
+          },
+        ),
+        IconButton(
+          icon: Icon(Icons.location_on),
+          onPressed: () {
+            // TODO: Implement send location functionality
+          },
+        ),
+        IconButton(
+          icon: Icon(Icons.close),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+  }
+}
+
+
 class ContactSearch extends SearchDelegate<String> {
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -170,21 +223,28 @@ class TabBarDemo extends StatelessWidget {
                               leading: Icon(Icons.person),
                               title: Text("John Smith"),
                               subtitle: Text("Emergency Contact"),
-                              trailing: Icon(Icons.phone),
-                              // onTap: () {
-                              //   Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) => ContactDetail(v1, v2, v3, v4)),
-                              //   );
-                              // },
-                              // onTap: () async {
-                              //   launch('tel://$number');
-
-                              //   await FlutterPhoneDirectCaller.callNumber(
-                              //       number);
-                              //   // Do something when the user taps the ListTile
-                              // },
+                              trailing: IconButton(
+                                icon: Icon(Icons.phone),
+                                onPressed: () async {
+                                  // Get the phone number from your data source
+                                  launch('tel://$number');
+                                  // Call the phone number
+                                  await FlutterPhoneDirectCaller.callNumber(
+                                      number);
+                                },
+                              ),
+                              
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return ContactDetailPopup(
+                                        name: "John Smith",
+                                        number: "123-456-7890",
+                                        relation: "Emergency Contact");
+                                  },
+                                );
+                              },
                             ),
                           ),
                           Card(
