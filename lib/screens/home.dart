@@ -34,12 +34,28 @@ class ContactDetailPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(name),
+      backgroundColor: Colors.white,
+      title: Text(
+        name,
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: Colors.black,
+          fontFamily: 'Montserrat',
+        ),
+      ),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Text("Phone number: $number"),
+            Text(
+              "Phone number: $number",
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+                fontFamily: 'Montserrat',
+              ),
+            ),
             SizedBox(height: 8),
             Text("Relationship: $relation"),
           ],
@@ -47,7 +63,11 @@ class ContactDetailPopup extends StatelessWidget {
       ),
       actions: <Widget>[
         IconButton(
-          icon: Icon(Icons.call),
+          icon: Icon(
+            Icons.call,
+            color: Colors.green,
+            size: 32,
+          ),
           onPressed: () async {
             // Get the phone number from your data source
             launch('tel://$number');
@@ -56,13 +76,21 @@ class ContactDetailPopup extends StatelessWidget {
           },
         ),
         IconButton(
-          icon: Icon(Icons.location_on),
+          icon: Icon(
+            Icons.location_on,
+            color: Colors.blue,
+            size: 32,
+          ),
           onPressed: () {
             // TODO: Implement send location functionality
           },
         ),
         IconButton(
-          icon: Icon(Icons.close),
+          icon: Icon(
+            Icons.close,
+            color: Colors.red,
+            size: 32,
+          ),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -71,7 +99,6 @@ class ContactDetailPopup extends StatelessWidget {
     );
   }
 }
-
 
 class ContactSearch extends SearchDelegate<String> {
   @override
@@ -175,14 +202,42 @@ class TabBarDemo extends StatelessWidget {
       home: DefaultTabController(
         length: 2,
         child: Scaffold(
-          backgroundColor: Color.fromARGB(255, 237, 109, 109),
+          backgroundColor: Color.fromARGB(255, 255, 255, 255),
           body: Column(
             children: [
               TabBar(
                 tabs: [
-                  Tab(text: "Emergency Contacts"),
-                  Tab(text: "Personal Contacts"),
+                  Tab(
+                    child: Text(
+                      "Emergency Contacts",
+                      style: TextStyle(
+                        color: Colors.grey[700],
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Tab(
+                    child: Text(
+                      "Personal Contacts",
+                      style: TextStyle(
+                        color: Colors.grey[700],
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ],
+                indicator: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.redAccent,
+                ),
+                labelColor: Colors.white,
+                unselectedLabelColor: Colors.grey[700],
+                labelStyle: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -200,12 +255,29 @@ class TabBarDemo extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: 16.0, vertical: 13),
-                        child: Row(
-                          children: [
-                            Icon(Icons.search),
-                            SizedBox(width: 10),
-                            Text('Search contacts'),
-                          ],
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.all(10),
+                                child:
+                                    Icon(Icons.search, color: Colors.grey[600]),
+                              ),
+                              SizedBox(width: 10),
+                              Expanded(
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                    hintText: 'Search contacts',
+                                    border: InputBorder.none,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -233,7 +305,6 @@ class TabBarDemo extends StatelessWidget {
                                       number);
                                 },
                               ),
-                              
                               onTap: () {
                                 showDialog(
                                   context: context,

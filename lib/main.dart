@@ -11,9 +11,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MainPage());
+    return MaterialApp(debugShowCheckedModeBanner: false, home: MainPage());
   }
 }
 
@@ -25,37 +23,67 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-
   int _currentIndex = 0;
-  final tabs = [TabBarDemo(),map(),NewsPage()];
+  final tabs = [TabBarDemo(), map(), NewsPage()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 255, 74, 74), 
-          centerTitle: true, 
-          leading: Icon(Icons.local_hospital), 
-          title: Text("Emergency call")
+      appBar: AppBar(
+        backgroundColor: Color(0xFFE02F2F),
+        centerTitle: true,
+        leading: Icon(Icons.local_hospital),
+        title: Text(
+          "Emergency call",
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
           ),
-        body: tabs[_currentIndex],
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Color.fromARGB(255, 255, 255, 255),
-          selectedItemColor: Color.fromARGB(255, 255, 74, 74),
+        ),
+      ),
+      body: tabs[_currentIndex],
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
+          ),
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xFFE02F2F), Color(0xFFE85A4F)],
+          ),
+        ),
+        child: BottomNavigationBar(
+          backgroundColor: Colors.transparent,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.grey,
           currentIndex: _currentIndex,
-          items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-            BottomNavigationBarItem(icon: Icon(Icons.map), label: "Location"),
-            BottomNavigationBarItem(icon: Icon(Icons.newspaper), label: "News"),
-            
-            
-          ],
           onTap: (index) {
             setState(() {
-              print(index);
               _currentIndex = index;
             });
           },
-        ));
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: "Home",
+              backgroundColor: Colors.transparent,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.map),
+              label: "Location",
+              backgroundColor: Colors.transparent,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.newspaper),
+              label: "News",
+              backgroundColor: Colors.transparent,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
