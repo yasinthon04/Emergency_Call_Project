@@ -25,7 +25,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
-  final tabs = [TabBarDemo(), map(), NewsPage()];
+  final tabs = [TabBarDemo(), map(), NewsPage(), profile() ];
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +80,11 @@ class _MainPageState extends State<MainPage> {
             BottomNavigationBarItem(
               icon: Icon(Icons.newspaper),
               label: "News",
+              backgroundColor: Colors.transparent,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: "Profile",
               backgroundColor: Colors.transparent,
             ),
           ],
