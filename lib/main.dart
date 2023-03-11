@@ -25,7 +25,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
-  final tabs = [TabBarDemo(), map(), NewsPage(), profile() ];
+  final tabs = [TabBarDemo(), map(), NewsPage(), Profile() ];
 
   @override
   Widget build(BuildContext context) {
