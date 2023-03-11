@@ -1,0 +1,22 @@
+[
+    {
+        "name": "John Smith",
+        "number": "123-456-7890",
+        "relation": "Father"
+    },
+    {
+        "name": "Jane Smith",
+        "number": "555-555-1212",
+        "relation": "Mother"
+    },
+    {
+        "name": "Bob Smith",
+        "number": "987-654-3210",
+        "relation": "Brother"
+    },
+    {
+        "name": "Mary Smith",
+        "number": "555-123-4567",
+        "relation": "Sister"
+    }
+]

@@ -34,73 +34,31 @@ class ContactDetailPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: Colors.white,
-      title: Text(
-        name,
-        style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-          fontFamily: 'Montserrat',
-        ),
+      title: Text(name),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Phone number: $number"),
+          SizedBox(height: 10),
+          Text("Relation: $relation"),
+        ],
       ),
-      content: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text(
-              "Phone number: $number",
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.black,
-                fontFamily: 'Montserrat',
-              ),
-            ),
-            SizedBox(height: 8),
-            Text("Relationship: $relation"),
-          ],
-        ),
-      ),
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(
-            Icons.call,
-            color: Colors.green,
-            size: 32,
-          ),
-          onPressed: () async {
-            // Get the phone number from your data source
-            launch('tel://$number');
-            // Call the phone number
-            await FlutterPhoneDirectCaller.callNumber(number);
-          },
-        ),
-        IconButton(
-          icon: Icon(
-            Icons.location_on,
-            color: Colors.blue,
-            size: 32,
-          ),
-          onPressed: () {
-            // TODO: Implement send location functionality
-          },
-        ),
-        IconButton(
-          icon: Icon(
-            Icons.close,
-            color: Colors.red,
-            size: 32,
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text('Close'),
         ),
       ],
     );
   }
 }
 
-class ContactSearch extends SearchDelegate<String> {
+class ContactSearch extends SearchDelegate<Contact> {
+  final List<Contact> contacts;
+
+  ContactSearch({required this.contacts});
+
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -118,38 +76,33 @@ class ContactSearch extends SearchDelegate<String> {
     return IconButton(
       icon: Icon(Icons.arrow_back),
       onPressed: () {
-        close(context, '');
+        close(context, Contact(name: '', number: '', relation: ''));
       },
     );
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    // Perform the search and display the results
-    final List<String> contacts = [
-      'John Smith',
-      'Jane Doe',
-      'Bob Johnson',
-      'Mary Smith',
-      'Tom Jones',
-      'Sarah Wilson',
-    ]; // replace with your actual list of contacts
-    final List<String> searchResults = contacts
-        .where((contact) => contact.toLowerCase().contains(query.toLowerCase()))
-        .toList();
+    final results = contacts.where((contact) =>
+        contact.name.toLowerCase().contains(query.toLowerCase()) ||
+        contact.number.contains(query));
     return ListView.builder(
-      itemCount: searchResults.length,
-      itemBuilder: (BuildContext context, int index) {
+      itemCount: results.length,
+      itemBuilder: (context, index) {
+        final contact = results.elementAt(index);
         return ListTile(
           leading: Icon(Icons.person),
-          title: Text(searchResults[index]),
-          subtitle: Text("Contact"),
-          trailing: Icon(Icons.phone),
-          onTap: () async {
-            String number =
-                '+12345567890'; // replace with the actual phone number
-            launch('tel://$number');
-            await FlutterPhoneDirectCaller.callNumber(number);
+          title: Text(contact.name),
+          subtitle: Text(contact.relation),
+          trailing: IconButton(
+            icon: Icon(Icons.phone),
+            onPressed: () async {
+              // Call the phone number
+              await FlutterPhoneDirectCaller.callNumber(contact.number);
+            },
+          ),
+          onTap: () {
+            Navigator.of(context).pop(contact);
           },
         );
       },
@@ -158,29 +111,35 @@ class ContactSearch extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // Display suggestions as the user types in the search bar
-    final List<String> contacts =
-        []; // replace with your actual list of contacts
-    final List<String> searchResults = query.isEmpty
-        ? contacts // Show all contacts when query is empty
-        : contacts
-            .where((contact) =>
-                contact.toLowerCase().contains(query.toLowerCase()))
-            .toList();
-
+    final results = contacts.where((contact) =>
+        contact.name.toLowerCase().contains(query.toLowerCase()) ||
+        contact.number.contains(query));
     return ListView.builder(
-      itemCount: searchResults.length,
-      itemBuilder: (BuildContext context, int index) {
+      itemCount: results.length,
+      itemBuilder: (context, index) {
+        final contact = results.elementAt(index);
         return ListTile(
           leading: Icon(Icons.person),
-          title: Text(searchResults[index]),
-          subtitle: Text("Contact"),
-          trailing: Icon(Icons.phone),
-          onTap: () async {
-            String number =
-                '+12345567890'; // replace with the actual phone number
-            launch('tel://$number');
-            await FlutterPhoneDirectCaller.callNumber(number);
+          title: Text(contact.name),
+          subtitle: Text(contact.relation),
+          trailing: IconButton(
+            icon: Icon(Icons.phone),
+            onPressed: () async {
+              // Call the phone number
+              await FlutterPhoneDirectCaller.callNumber(contact.number);
+            },
+          ),
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return ContactDetailPopup(
+                  name: contact.name,
+                  number: contact.number,
+                  relation: contact.relation,
+                );
+              },
+            );
           },
         );
       },
@@ -249,7 +208,7 @@ class TabBarDemo extends StatelessWidget {
                       onTap: () {
                         showSearch(
                           context: context,
-                          delegate: ContactSearch(),
+                          delegate: ContactSearch(contacts: []),
                         );
                       },
                       child: Padding(
@@ -287,86 +246,138 @@ class TabBarDemo extends StatelessWidget {
               Expanded(
                 child: TabBarView(
                   children: [
-                    Container(
-                      child: ListView(
-                        children: <Widget>[
-                          Card(
-                            child: ListTile(
-                              leading: Icon(Icons.person),
-                              title: Text("John Smith"),
-                              subtitle: Text("Emergency Contact"),
-                              trailing: IconButton(
-                                icon: Icon(Icons.phone),
-                                onPressed: () async {
-                                  // Get the phone number from your data source
-                                  launch('tel://$number');
-                                  // Call the phone number
-                                  await FlutterPhoneDirectCaller.callNumber(
-                                      number);
-                                },
-                              ),
-                              onTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return ContactDetailPopup(
-                                        name: "John Smith",
-                                        number: "123-456-7890",
-                                        relation: "Emergency Contact");
+                    FutureBuilder<List<Contact>>(
+                      future: loadEmergencyContactsFromJson(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          final contacts = snapshot.data!;
+                          return ListView.builder(
+                            itemCount: contacts.length,
+                            itemBuilder: (context, index) {
+                              final contact = contacts[index];
+                              return Card(
+                                child: ListTile(
+                                  leading: Icon(Icons.person),
+                                  title: Text(contact.name),
+                                  subtitle: Text(contact.relation),
+                                  trailing: IconButton(
+                                    icon: Icon(Icons.phone),
+                                    onPressed: () async {
+                                      // Call the phone number
+                                      await FlutterPhoneDirectCaller.callNumber(
+                                          contact.number);
+                                    },
+                                  ),
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return ContactDetailPopup(
+                                          name: contact.name,
+                                          number: contact.number,
+                                          relation: contact.relation,
+                                        );
+                                      },
+                                    );
                                   },
-                                );
-                              },
-                            ),
-                          ),
-                          Card(
-                            child: ListTile(
-                              leading: Icon(Icons.person),
-                              title: Text("Jane Doe"),
-                              subtitle: Text("Emergency Contact"),
-                              trailing: Icon(Icons.phone),
-                              onTap: () {
-                                // Do something when the user taps the ListTile
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
+                                ),
+                              );
+                            },
+                          );
+                        } else if (snapshot.hasError) {
+                          return Text("${snapshot.error}");
+                        } else {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                      },
                     ),
-                    Container(
-                      child: ListView(
-                        children: <Widget>[
-                          Card(
-                            child: ListTile(
-                              leading: Icon(Icons.person),
-                              title: Text("Bob Johnson"),
-                              subtitle: Text("Personal Contact"),
-                              trailing: Icon(Icons.phone),
-                              onTap: () {
-                                // Do something when the user taps the ListTile
-                              },
-                            ),
-                          ),
-                          Card(
-                            child: ListTile(
-                              leading: Icon(Icons.person),
-                              title: Text("Mary Smith"),
-                              subtitle: Text("Personal Contact"),
-                              trailing: Icon(Icons.phone),
-                              onTap: () {
-                                // Do something when the user taps the ListTile
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
+                    FutureBuilder<List<Contact>>(
+                      future: loadPersonalContactsFromJson(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          final contacts = snapshot.data!;
+                          return ListView.builder(
+                            itemCount: contacts.length,
+                            itemBuilder: (context, index) {
+                              final contact = contacts[index];
+                              return Card(
+                                child: ListTile(
+                                  leading: Icon(Icons.person),
+                                  title: Text(contact.name),
+                                  subtitle: Text(contact.relation),
+                                  trailing: IconButton(
+                                    icon: Icon(Icons.phone),
+                                    onPressed: () async {
+                                      // Call the phone number
+                                      await FlutterPhoneDirectCaller.callNumber(
+                                          contact.number);
+                                    },
+                                  ),
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return ContactDetailPopup(
+                                          name: contact.name,
+                                          number: contact.number,
+                                          relation: contact.relation,
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                          );
+                        } else if (snapshot.hasError) {
+                          return Text("${snapshot.error}");
+                        } else {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                      },
                     ),
                   ],
                 ),
-              ),
+              )
             ],
           ),
         ),
       ),
     );
   }
+}
+
+
+class Contact {
+  final String name;
+  final String number;
+  final String relation;
+
+  Contact({
+    required this.name,
+    required this.number,
+    required this.relation,
+  });
+
+  factory Contact.fromJson(Map<String, dynamic> json) {
+    return Contact(
+      name: json['name'],
+      number: json['number'],
+      relation: json['relation'],
+    );
+  }
+}
+
+Future<List<Contact>> loadEmergencyContactsFromJson() async {
+  final String jsonString =
+      await rootBundle.loadString('assets/emergency_contacts.json');
+  final List<dynamic> jsonList = json.decode(jsonString);
+  return jsonList.map((json) => Contact.fromJson(json)).toList();
+}
+
+Future<List<Contact>> loadPersonalContactsFromJson() async {
+  final String jsonString =
+      await rootBundle.loadString('assets/personal_contacts.json');
+  final List<dynamic> jsonList = json.decode(jsonString);
+  return jsonList.map((json) => Contact.fromJson(json)).toList();
 }

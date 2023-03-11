@@ -1,0 +1,32 @@
+[
+    {
+        "name": "Police",
+        "number": "191",
+        "relation": "Emergency Contact"
+    },
+    {
+        "name": "Ambulance Service",
+        "number": "1669",
+        "relation": "Emergency Contact"
+    },
+    {
+        "name": "Fire",
+        "number": "199",
+        "relation": "Emergency Contact"
+    },
+    {
+        "name": "Rescue Service",
+        "number": "1154",
+        "relation": "Emergency Contact"
+    },
+    {
+        "name": "Flood Relief Operations Centre",
+        "number": "0 5324 8925",
+        "relation": "Emergency Contact"
+    },
+    {
+        "name": "Dangerous Animal Protection Center Chiang Mai Zoo",
+        "number": "0 5322 2479",
+        "relation": "Emergency Contact"
+    }
+]
