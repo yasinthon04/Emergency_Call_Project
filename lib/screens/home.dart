@@ -7,6 +7,7 @@ import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:emc/screens/map.dart';
 
 void main() {
   runApp(const TabBarDemo());
@@ -44,10 +45,29 @@ class ContactDetailPopup extends StatelessWidget {
           Text("Relation: $relation"),
         ],
       ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text('Close'),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(
+            Icons.location_on,
+            color: Colors.blue,
+            size: 32,
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => map()),
+            );
+          },
+        ),
+        IconButton(
+          icon: Icon(
+            Icons.close,
+            color: Colors.red,
+            size: 32,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
         ),
       ],
     );
@@ -346,7 +366,6 @@ class TabBarDemo extends StatelessWidget {
     );
   }
 }
-
 
 class Contact {
   final String name;
