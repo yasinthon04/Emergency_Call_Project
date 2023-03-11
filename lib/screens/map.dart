@@ -81,7 +81,7 @@ class _mapState extends State<map> {
             builder: (context) {
               return AlertDialog(
                 content: Text(
-                    'Your location has been send !\nlat: ${userLocation.latitude} long: ${userLocation.longitude} '),
+                    'Your location has been sent !\nlat: ${userLocation.latitude} long: ${userLocation.longitude} '),
               );
             },
           );

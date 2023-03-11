@@ -80,7 +80,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                         FadeTransition(
                           opacity: _animation,
                           child: Text(
-                            'Mr. Nickolas West',
+                            'Mr. Nickolas Smith',
                             style: const TextStyle(
                                 fontSize: 22, fontWeight: FontWeight.bold),
                           ),
