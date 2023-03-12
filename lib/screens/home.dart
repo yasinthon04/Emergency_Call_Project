@@ -225,12 +225,7 @@ class TabBarDemo extends StatelessWidget {
                   child: Container(
                     color: Colors.white,
                     child: GestureDetector(
-                      onTap: () {
-                        showSearch(
-                          context: context,
-                          delegate: ContactSearch(contacts: []),
-                        );
-                      },
+                      
                       child: Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: 16.0, vertical: 13),
@@ -249,6 +244,23 @@ class TabBarDemo extends StatelessWidget {
                               SizedBox(width: 10),
                               Expanded(
                                 child: TextField(
+                                  onTap: () async {
+                        print("search");
+                        // Load the contacts from the JSON files
+                        final emergencyContacts =
+                            await loadEmergencyContactsFromJson();
+                        final personalContacts =
+                            await loadPersonalContactsFromJson();
+                        final allContacts = [
+                          ...emergencyContacts,
+                          ...personalContacts
+                        ];
+                        // Show the search delegate with the loaded contacts
+                        showSearch(
+                          context: context,
+                          delegate: ContactSearch(contacts: allContacts),
+                        );
+                      },
                                   decoration: InputDecoration(
                                     hintText: 'Search contacts',
                                     border: InputBorder.none,
@@ -385,6 +397,11 @@ class Contact {
       relation: json['relation'],
     );
   }
+}
+
+List<Contact> parseContacts(String jsonString) {
+  final parsed = jsonDecode(jsonString).cast<Map<String, dynamic>>();
+  return parsed.map<Contact>((json) => Contact.fromJson(json)).toList();
 }
 
 Future<List<Contact>> loadEmergencyContactsFromJson() async {
