@@ -172,6 +172,20 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                                       ListTile(
                                         title: const Padding(
                                           padding: EdgeInsets.only(bottom: 5.0),
+                                          child: Text("ALLEGIES"),
+                                        ),
+                                        subtitle: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: const [
+                                            Text('Penicillin'),
+                                            Text("Aspirin")
+                                          ],
+                                        ),
+                                      ),
+                                      ListTile(
+                                        title: const Padding(
+                                          padding: EdgeInsets.only(bottom: 5.0),
                                           child: Text("ADDRESS"),
                                         ),
                                         subtitle: Column(
