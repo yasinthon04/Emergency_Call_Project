@@ -33,7 +33,7 @@ class _MainPageState extends State<MainPage> {
       appBar: AppBar(
         backgroundColor: Color(0xFFE02F2F),
         centerTitle: true,
-        leading: Icon(Icons.local_hospital),
+        leading: Icon(Icons.emergency),
         title: Text(
           "Emergency call",
           style: TextStyle(
