@@ -33,7 +33,13 @@ class _MainPageState extends State<MainPage> {
       appBar: AppBar(
         backgroundColor: Color(0xFFE02F2F),
         centerTitle: true,
-        leading: Icon(Icons.emergency),
+        leading: IconButton(
+          onPressed: (){
+            Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => MainPage()),
+      );
+          }, icon: Icon(Icons.emergency),),
         title: Text(
           "Emergency call",
           style: TextStyle(
