@@ -104,7 +104,7 @@ class _DetailspageState extends State<Detailspage>
                     child: Container(
                       padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.9),
+                        color: Colors.white.withOpacity(0.5),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: SingleChildScrollView(
