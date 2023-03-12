@@ -25,7 +25,8 @@ class _DetailspageState extends State<Detailspage>
     _v4 = widget.v4;
     _animationController =
         AnimationController(vsync: this, duration: Duration(seconds: 1));
-    _animation = Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
+    _animation =
+        Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
     _animationController.forward();
   }
 
@@ -75,16 +76,22 @@ class _DetailspageState extends State<Detailspage>
                 SizedBox(height: 30),
                 FadeTransition(
                   opacity: _animation,
-                  child: Container(
-                    height: 400,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.network(
-                        widget.v3,
-                        fit: BoxFit.cover,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Container(
+                      height: 400,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 20),
+                          child: Image.network(
+                            widget.v3,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -92,20 +99,23 @@ class _DetailspageState extends State<Detailspage>
                 SizedBox(height: 30),
                 FadeTransition(
                   opacity: _animation,
-                  child: Container(
-                    padding: EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.9),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: SingleChildScrollView(
-                      child: Text(
-                        widget.v4,
-                        textAlign: TextAlign.justify,
-                        style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontSize: 20,
-                          color: Colors.black,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.9),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: SingleChildScrollView(
+                        child: Text(
+                          widget.v4,
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontSize: 20,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
                     ),
