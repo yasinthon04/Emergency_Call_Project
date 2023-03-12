@@ -73,6 +73,7 @@ class _mapState extends State<map> {
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Colors.red,
         onPressed: () {
           mapController.animateCamera(CameraUpdate.newLatLngZoom(
               LatLng(userLocation.latitude, userLocation.longitude), 18));
@@ -89,6 +90,7 @@ class _mapState extends State<map> {
         label: Text("Send Location"),
         icon: Icon(Icons.near_me),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );
   }
 }
