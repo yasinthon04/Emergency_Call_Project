@@ -1,24 +1,11 @@
-import 'package:emc/info/contactdetail.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'dart:convert';
-import 'dart:io';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:emc/screens/map.dart';
 
 void main() {
   runApp(const TabBarDemo());
-}
-
-void _launchPhoneApp(String phoneNumber) async {
-  if (await canLaunch(phoneNumber)) {
-    await launch(phoneNumber);
-  } else {
-    throw 'Could not launch $phoneNumber';
-  }
 }
 
 class ContactDetailPopup extends StatelessWidget {
@@ -174,7 +161,7 @@ class TabBarDemo extends StatelessWidget {
   Widget build(
     BuildContext context,
   ) {
-    final number = '+12345567890';
+    final number = '';
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
